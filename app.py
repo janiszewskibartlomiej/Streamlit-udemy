@@ -29,3 +29,12 @@ plot = ply.histogram(data_frame=df_plot,
                      facet_col='Survived',
                      x='Age')
 col1.plotly_chart(plot)
+
+df_plot_pie = df_plot.loc[:, ['PassengerId', 'Survived']].groupby('Survived').count().reset_index()
+df_plot_pie.rename({'PassengerId': 'Count of passengers'}, axis='columns', inplace=True)
+print(df_plot_pie)
+pie_plot = ply.pie(data_frame=df_plot_pie, template='seaborn', values='Count of passengers', names='Survived', title='Count of passengers that survived')
+col2.plotly_chart(pie_plot)
+
+plot = ply.box(data_frame=df_plot, y='Fare', color='Survived', template='seaborn', title='Distribution of fare across survival status')
+st.plotly_chart(plot)
